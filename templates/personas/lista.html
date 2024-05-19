@@ -1,0 +1,37 @@
+{% extends "template.html" %}
+
+{% block content %}
+<div class="content-panel">
+    <a href="/personas/ver" class="btn btn-danger mb-3">AGREGAR PERSONA</a>
+    <div class="table-container">
+        <table id="tabla" class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nro</th>
+                    <th>Apellidos y Nombres</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Tipo RUC</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in lista %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ item.apellidos }} {{ item.nombres }}</td>
+                    <td>{{ item.dni }}</td>
+                    <td>{{ item.telefono }}</td>
+                    <td>{{ item.direccion }}</td>
+                    <td>{{ item.tipoRuc }}</td>
+                    <td>
+                        <a href="/personas/editar/{{ item.id }}" class="btn btn-info">Modificar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

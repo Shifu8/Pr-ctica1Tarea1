@@ -30,7 +30,7 @@ def lista_personas():
     pc = PersonaDaoControl()
     return make_response(
         
-        jsonify({"msg":"OK", "code": 200, "data": pc.to_dic()}),
+        jsonify({"msg":"OK", "code": 200, "data": pc.to_dict()}),
         200
     )
 
@@ -52,7 +52,7 @@ def guardar_personas():
     pc._persona._telefono = data["telefono"]
     pc._persona._direccion = data["direccion"]
     pc._persona._dni = data["dni"]
-    pc._persona._tipoIdentificacion = data["tipoIdentificacion"]
+    pc._persona._tipoRuc = data["tipoIdentificacion"]
     pc.save
     pc._persona = None
 

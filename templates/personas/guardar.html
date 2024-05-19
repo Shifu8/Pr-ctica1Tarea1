@@ -1,0 +1,55 @@
+{% extends "template.html" %}
+
+{% block content %}
+<div class="background-image" style="background-image: url('static/img/background.jpg');">
+    <div class="container content-panel p-4">
+        <h2 class="text-center text-white mb-4">Registrar Persona</h2>
+        <div class="card shadow">
+            <div class="card-body">
+                <form id="form" class="custom-form booking-form" action="/personas/guardar" method="post" role="form">
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <label for="dni" class="form-label text-white">DNI:</label>
+                            <input type="text" name="dni" class="form-control" id="dni" placeholder="Ingrese el DNI"
+                                required>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="apellidos" class="form-label text-white">Apellidos:</label>
+                            <input type="text" name="apellidos" class="form-control" id="apellidos"
+                                placeholder="Ingrese los apellidos" required>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="nombres" class="form-label text-white">Nombres:</label>
+                            <input type="text" name="nombres" class="form-control" id="nombres"
+                                placeholder="Ingrese los nombres" required>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="telefono" class="form-label text-white">Teléfono:</label>
+                            <input type="text" name="telefono" class="form-control" id="telefono"
+                                placeholder="Ingrese el teléfono" required>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="direccion" class="form-label text-white">Dirección:</label>
+                            <input type="text" name="direccion" class="form-control" id="direccion"
+                                placeholder="Ingrese la dirección" required>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="tipo_ruc" class="form-label text-white">Tipo de RUC:</label>
+                            <select name="tipo_ruc" class="form-select" id="tipo_ruc">
+                                <option value="educativo">RUC Educativo</option>
+                                <option value="profesional">RUC Profesional</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12 mt-4">
+                            <button id="boton" type="submit" class="form-control btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/personas" class="btn btn-danger">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

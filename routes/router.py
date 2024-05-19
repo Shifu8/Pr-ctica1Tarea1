@@ -1,10 +1,8 @@
-from flask import Blueprint, jsonify, abort , request, render_template, redirect
+from flask import Blueprint, abort , request, render_template, redirect, url_for
 from controls.personaDaoControl import PersonaDaoControl
+from controls.facturaDaoControl import FacturaDaoControl
 from flask_cors import CORS
 router = Blueprint('router', __name__)
-
-
-
 
 #CORS(api)
 cors = CORS(router, resource={
@@ -13,35 +11,43 @@ cors = CORS(router, resource={
     }
 })
 
-#GET: PARA PRESENTAR DATOS
-#POST: GUARDA DATOS, MODIFICA DATOS Y EL INICIO DE SESION, EVIAR DATOS AL SERVIDOR
-
 @router.route('/') #SON GETS
 def home():
     return render_template('template.html')
 
 
-#LISTA PERSONAS
+#Ver la lista de las personas
 @router.route('/personas')
 def lista_personas():
     pc = PersonaDaoControl()
-    return render_template('nene/lista.html', lista=pc.to_dic())
+    return render_template('personas/lista.html', lista = pc.to_dict())
 
-#LISTA PERSONAS
+
+#Ver la lista de las facturas
+#@router.route('/facturas')
+#def lista_facturas():
+ #   fc = FacturaDaoControl()
+  #  return render_template('facturas/lista.html', lista=fc.to_dict())
+
+
+
+#ver la interfaz de guardar persona
 @router.route('/personas/ver')
 def ver_personas():
-    return render_template('nene/guardar.html')
+   return render_template('personas/guardar.html')
 
-
-
+#ver la interfaz de guardar factura
+#@router.route('/facturas/ver')
+#def ver_facturas():
+ #   return render_template('factura/guardar.html')
 
 
 @router.route('/personas/editar/<pos>')
 def ver_editar(pos):
     pd = PersonaDaoControl()
-    nene = pd._list().getNode(int(pos)-1)
-    print(nene)
-    return render_template("nene/editar.html", data = nene )
+    persona = pd._list().getNode(int(pos)-1)
+    print(persona)
+    return render_template("personas/editar.html", data = persona )
 
 
 #GUARDAR PERSONAS
@@ -59,7 +65,7 @@ def guardar_personas():
     pd._persona._direccion = data["direccion"]
     pd._persona._dni = data["dni"]
     pd._persona._telefono = data["telefono"]
-    pd._persona._tipoIdentificacion = "CEDULA"
+    pd._persona._tipoRuc = "EDUCATIVO"
     pd.save
     return redirect("/personas", code=302)
 

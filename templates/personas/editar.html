@@ -1,0 +1,38 @@
+{% extends "template.html" %}
+{% block content %}
+<h2 class="text-white">Modificar nene</h2>
+<div class="booking-form-body">
+    <a href="/personas" class="btn btn-danger">VOLVER</a>
+    <form id="form" class="custom-form booking-form" action="/personas/modificar" method="post" role="form">
+        <div class="booking-form-body">
+            <input type="hidden" name="id" value="{{data._id}}" />
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <input type="text" value="{{data._dni}}" name="dni" class="form-control" placeholder="DNI" required>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <input type="text" value="{{data._apellidos}}" name="apellidos" class="form-control"
+                        placeholder="Apellidos" required>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <input type="text" value="{{data._nombres}}" name="nombres" class="form-control"
+                        placeholder="Nombres" required>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <input type="text" value="{{data._telefono}}" name="telefono" class="form-control"
+                        placeholder="Telefono" required>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <input type="text" value="{{data._direccion}}" name="direccion" class="form-control"
+                        placeholder="Direccion" required>
+                </div>
+
+                <div class="col-lg-4 col-md-10 col-8 mx-auto mt-2">
+                    <button id="boton" type="submit" class="form-control btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
