@@ -1,0 +1,7 @@
+<a href="#" class="btn btn-danger btn-sm"
+    onclick="event.preventDefault(); document.getElementById('eliminar-form-{{ item.id }}').submit();">
+    Eliminar
+</a>
+<form id="eliminar-form-{{ item.id }}" action="/personas/eliminar/{{ item.id }}" method="POST" style="display: none;">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+</form>

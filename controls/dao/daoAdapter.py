@@ -56,3 +56,8 @@ class DaoAdapter(Generic[T]):
         a.write(self.__transform__())
         a.close()
       
+    def _delete(self, pos) -> T:
+        self._list()
+        self.lista.delete(pos)
+        with open(self.URL + self.file, "w") as a:
+            a.write(self.__transform__())

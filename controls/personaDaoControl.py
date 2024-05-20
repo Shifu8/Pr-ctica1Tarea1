@@ -27,3 +27,16 @@ class PersonaDaoControl(DaoAdapter):
     
     def merge(self, pos):
         self._merge(self._persona, pos)
+        
+    def delete(self, pos):
+        self._delete(pos)
+        
+    def get_persona_by_id(self, id):
+        personas = self._lista
+        for persona in personas:
+            if persona._id == id:
+                return persona
+        return None
+
+
+        

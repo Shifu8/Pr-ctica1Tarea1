@@ -7,3 +7,4 @@ def create_app():
         from routes.router import router
         app.register_blueprint(router)
     return app
+

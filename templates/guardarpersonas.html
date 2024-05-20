@@ -1,0 +1,134 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>KOPPEE - Coffee Shop HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free Website Template" name="keywords">
+    <meta content="Free Website Template" name="description">
+
+    <!-- Favicon -->
+    <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}"
+        rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.min.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0 nav-bar">
+        <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
+            <a href="templatepersonas.html" class="navbar-brand px-lg-4 m-0">
+                <h1 class="m-0 display-4 text-uppercase text-white">sistema de Retencion de Facturas</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
+        <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5"
+            style="min-height: 400px">
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Registro de Personas</h1>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Registration Form Start -->
+    <div class="background-image"
+        style="background-image: url('{{ url_for('static', filename='img/background.jpg') }}');">
+        <div class="container content-panel p-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form id="form" class="custom-form booking-form" action="/personas/guardar" method="post"
+                        role="form">
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="dni" class="form-label text-white">DNI:</label>
+                                <input type="text" name="dni" class="form-control" id="dni" placeholder="Ingrese el DNI"
+                                    required>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="apellidos" class="form-label text-white">Apellidos:</label>
+                                <input type="text" name="apellidos" class="form-control" id="apellidos"
+                                    placeholder="Ingrese los apellidos" required>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="nombres" class="form-label text-white">Nombres:</label>
+                                <input type="text" name="nombres" class="form-control" id="nombres"
+                                    placeholder="Ingrese los nombres" required>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="telefono" class="form-label text-white">Teléfono:</label>
+                                <input type="text" name="telefono" class="form-control" id="telefono"
+                                    placeholder="Ingrese el teléfono" required>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="direccion" class="form-label text-white">Dirección:</label>
+                                <input type="text" name="direccion" class="form-control" id="direccion"
+                                    placeholder="Ingrese la dirección" required>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="tipo_ruc" class="form-label text-white">Tipo de RUC:</label>
+                                <select name="tipo_ruc" class="form-select" id="tipo_ruc">
+                                    <option value="educativo">RUC Educativo</option>
+                                    <option value="profesional">RUC Profesional</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 mt-4">
+                                <button id="boton" type="submit" class="form-control btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="/personas" class="btn btn-danger">Volver</a>
+            </div>
+        </div>
+    </div>
+    <!-- Registration Form End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{{ url_for('static', filename='mail/jqBootstrapValidation.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='mail/contact.js') }}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
+{% endblock %}

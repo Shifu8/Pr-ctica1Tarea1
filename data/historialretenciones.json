@@ -1,9 +1,0 @@
-[
-    {
-        "idRetencion": 1,
-        "fecha": "fecha",
-        "numeroFactura": "numeroFactura",
-        "porcentaje": "porcentaje",
-        "montoRetenido": "montoRetenido"
-    }
-]

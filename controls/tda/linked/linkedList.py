@@ -17,7 +17,18 @@ class Linked_List(object):
         self.__lenght = value
         
         
-     
+    def is_empty(self):
+        return self.__head is None 
+    
+    def size(self):
+        current = self.__head
+        count = 0
+        while current:
+            count += 1
+            current = current._next
+        return count
+    
+    
     #Metodo privado para aregar un primer nodo
     def __addFirst__(self, data):
         if self.isEmpty:
