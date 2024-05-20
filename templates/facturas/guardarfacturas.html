@@ -34,7 +34,7 @@
     <!-- Navbar Start -->
     <div class="container-fluid p-0 nav-bar">
         <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
-            <a href="templatepersonas.html" class="navbar-brand px-lg-4 m-0">
+            <a href="templatefacturas.html" class="navbar-brand px-lg-4 m-0">
                 <h1 class="m-0 display-4 text-uppercase text-white">sistema de Retencion de Facturas</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -50,7 +50,7 @@
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5"
             style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Registro de Personas</h1>
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Registro de Facturas</h1>
         </div>
     </div>
     <!-- Page Header End -->
@@ -61,40 +61,34 @@
         <div class="container content-panel p-4">
             <div class="card shadow">
                 <div class="card-body">
-                    <form id="form" class="custom-form booking-form" action="/personas/guardar" method="post"
+                    <form id="form" class="custom-form booking-form" action="/facturas/guardar" method="post"
                         role="form">
                         <div class="row">
                             <div class="col-lg-6 mb-3">
-                                <label for="dni" class="form-label text-white">DNI:</label>
-                                <input type="text" name="dni" class="form-control" id="dni" placeholder="Ingrese el DNI"
-                                    required>
+                                <label for="numero" class="form-label text-white">Número:</label>
+                                <input type="text" name="numero" class="form-control" id="numero"
+                                    placeholder="Ingrese el número" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="apellidos" class="form-label text-white">Apellidos:</label>
-                                <input type="text" name="apellidos" class="form-control" id="apellidos"
-                                    placeholder="Ingrese los apellidos" required>
+                                <label for="dniPersonaEmisora" class="form-label text-white">DNI Persona
+                                    Emisora:</label>
+                                <input type="text" name="dniPersonaEmisora" class="form-control" id="dniPersonaEmisora"
+                                    placeholder="Ingrese el DNI de la persona emisora" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="nombres" class="form-label text-white">Nombres:</label>
-                                <input type="text" name="nombres" class="form-control" id="nombres"
-                                    placeholder="Ingrese los nombres" required>
+                                <label for="nombreReceptor" class="form-label text-white">Nombre Receptor:</label>
+                                <input type="text" name="nombreReceptor" class="form-control" id="nombreReceptor"
+                                    placeholder="Ingrese el nombre del receptor" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="telefono" class="form-label text-white">Teléfono:</label>
-                                <input type="text" name="telefono" class="form-control" id="telefono"
-                                    placeholder="Ingrese el teléfono" required>
+                                <label for="fechaEmision" class="form-label text-white">Fecha de Emisión:</label>
+                                <input type="date" name="fechaEmision" class="form-control" id="fechaEmision"
+                                    placeholder="Ingrese la fecha de emisión" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="direccion" class="form-label text-white">Dirección:</label>
-                                <input type="text" name="direccion" class="form-control" id="direccion"
-                                    placeholder="Ingrese la dirección" required>
-                            </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="tipo_ruc" class="form-label text-white">Tipo de RUC:</label>
-                                <select name="tipo_ruc" class="form-select" id="tipo_ruc">
-                                    <option value="educativo">RUC Educativo</option>
-                                    <option value="profesional">RUC Profesional</option>
-                                </select>
+                                <label for="montoTotal" class="form-label text-white">Monto Total:</label>
+                                <input type="text" name="montoTotal" class="form-control" id="montoTotal"
+                                    placeholder="Ingrese el monto total" required>
                             </div>
                             <div class="col-lg-12 mt-4">
                                 <button id="boton" type="submit" class="form-control btn btn-primary">Guardar</button>
@@ -104,10 +98,11 @@
                 </div>
             </div>
             <div class="text-center mt-3">
-                <a href="/personas" class="btn btn-danger">Volver</a>
+                <a href="/facturas" class="btn btn-danger">Volver</a>
             </div>
         </div>
     </div>
+
     <!-- Registration Form End -->
 
     <!-- Back to Top -->

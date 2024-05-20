@@ -1,12 +1,15 @@
-from flask import Blueprint, abort , request, render_template, redirect
-from flask import jsonify
+from flask import Blueprint, abort , request, render_template, redirect, url_for
 from flask import flash
 from controls.personaDaoControl import PersonaDaoControl
 from models.personaEmisora import PersonaEmisora
 from controls.facturaDaoControl import FacturaDaoControl
 from models.factura import Factura
 from flask_cors import CORS
+
+
 router = Blueprint('router', __name__)
+
+
 
 #CORS(api)
 cors = CORS(router, resource={
@@ -46,6 +49,52 @@ def ver_personas():
 @router.route('/facturas/ver')
 def ver_facturas():
    return render_template('facturas/guardarfacturas.html')
+
+@router.route('/personas/guardar', methods=["POST"])
+def guardar_personas():
+    pd = PersonaDaoControl()
+    data = request.form
+    
+    # Validar si los datos mínimos están presentes
+    if not all(key in data for key in ["apellidos", "nombres", "direccion", "dni", "telefono"]):
+        abort(400, "Faltan datos necesarios")
+
+    # Crear una nueva instancia de PersonaEmisora con los datos del formulario
+    nueva_persona = PersonaEmisora()
+    nueva_persona._apellidos = str(data["apellidos"])
+    nueva_persona._nombres = str(data["nombres"])
+    nueva_persona._direccion = str(data["direccion"])
+    nueva_persona._dni = str(data["dni"])
+    nueva_persona._telefono = str(data["telefono"])
+    nueva_persona._tipoRuc = "EDUCATIVO"  # Se define el tipo de RUC aquí, puedes modificarlo según tus necesidades
+
+    # Guardar la nueva persona utilizando el método save de PersonaDaoControl
+    pd._save(nueva_persona)
+
+    return redirect("/personas", code=302)
+
+
+@router.route('/facturas/guardar', methods=["POST"])
+def guardar_facturas():
+    fd = FacturaDaoControl()
+    data = request.form
+    
+    # Validar si los datos mínimos están presentes
+    if not all(key in data for key in ["numero", "dniPersonaEmisora", "nombreReceptor", "fechaEmision", "montoTotal"]):
+        abort(400, "Faltan datos necesarios")
+
+    # Crear una nueva instancia de Factura con los datos del formulario
+    nueva_factura = Factura()
+    nueva_factura._numero = str(data["numero"])
+    nueva_factura._dniPersonaEmisora = str(data["dniPersonaEmisora"])
+    nueva_factura._nombreReceptor = str(data["nombreReceptor"])
+    nueva_factura._fechaEmision = str(data["fechaEmision"])
+    nueva_factura._montoTotal = str(data["montoTotal"])
+
+    # Guardar la nueva factura utilizando el método save de FacturaDaoControl
+    fd.save(nueva_factura)
+
+    return redirect("/facturas", code=302)
 
 
 @router.route('/personas/editar/<int:id>', methods=["GET"])

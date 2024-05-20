@@ -34,7 +34,7 @@
     <!-- Navbar Start -->
     <div class="container-fluid p-0 nav-bar">
         <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
-            <a href="templatefacturas.html" class="navbar-brand px-lg-4 m-0">
+            <a href="templatepersonas.html" class="navbar-brand px-lg-4 m-0">
                 <h1 class="m-0 display-4 text-uppercase text-white">sistema de Retencion de Facturas</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -55,13 +55,12 @@
     </div>
     <!-- Page Header End -->
 
-    <!-- Registration Form Start -->
     <div class="background-image"
         style="background-image: url('{{ url_for('static', filename='img/background.jpg') }}');">
         <div class="container content-panel p-4">
             <div class="card shadow">
                 <div class="card-body">
-                    <form id="form" class="custom-form booking-form" action="/facturas/guardar" method="post"
+                    <form id="form" class="custom-form booking-form" action="/personas/guardar" method="post"
                         role="form">
                         <div class="row">
                             <div class="col-lg-6 mb-3">
@@ -91,7 +90,7 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="tipo_ruc" class="form-label text-white">Tipo de RUC:</label>
-                                <select name="tipo_ruc" class="form-select" id="tipo_ruc">
+                                <select name="tipoRuc" class="form-select" id="tipo_ruc">
                                     <option value="educativo">RUC Educativo</option>
                                     <option value="profesional">RUC Profesional</option>
                                 </select>
@@ -104,7 +103,7 @@
                 </div>
             </div>
             <div class="text-center mt-3">
-                <a href="/facturas" class="btn btn-danger">Volver</a>
+                <a href="/personas" class="btn btn-danger">Volver</a>
             </div>
         </div>
     </div>
