@@ -92,7 +92,7 @@ def guardar_facturas():
     nueva_factura._montoTotal = str(data["montoTotal"])
 
     # Guardar la nueva factura utilizando el método save de FacturaDaoControl
-    fd.save(nueva_factura)
+    fd._save(nueva_factura)
 
     return redirect("/facturas", code=302)
 

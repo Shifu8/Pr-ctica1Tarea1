@@ -30,10 +30,10 @@
                         <a href="/personas/editar/{{ item.id }}" class="btn btn-info btn-sm">Modificar</a>
                         <a href="/personas/eliminar/{{ item.id }}" class="btn btn-danger btn-sm"
                             onclick="return confirm('¿Estás seguro de que deseas eliminar esta persona?');">Eliminar</a>
-                        <a href="listafacturas.html" class="btn btn-primary btn-sm">Agregar Factura</a>
+                        <a href="facturas/ver" class="btn btn-primary btn-sm">Agregar Factura</a>
                     </td>
                     <td>
-                        <a href="/facturas/detalles/{{ item.id }}" class="btn btn-primary btn-sm">Ver Facturas</a>
+                        <a href="facturas" class="btn btn-primary btn-sm">Ver Facturas</a>
                     </td>
                 </tr>
                 {% endfor %}
