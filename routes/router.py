@@ -4,6 +4,8 @@ from controls.personaDaoControl import PersonaDaoControl
 from models.personaEmisora import PersonaEmisora
 from controls.facturaDaoControl import FacturaDaoControl
 from models.factura import Factura
+from controls.historialDao import HistorialDao
+from models.historialRetenciones import HistorialRetenciones
 from flask_cors import CORS
 
 
@@ -26,6 +28,10 @@ def home():
 def home1():
     return render_template('templatefacturas.html')
 
+@router.route('/') #SON GETS
+def home2():
+    return render_template('templateretenciones.html')
+
 
 #Ver la lista de las personas
 @router.route('/personas')
@@ -38,6 +44,12 @@ def lista_personas():
 def lista_facturas():
     fc = FacturaDaoControl()
     return render_template('facturas/listafacturas.html', lista = fc.to_dict())
+
+#Ver la lista de las personas
+@router.route('/retenciones')
+def lista_retenciones():
+    hd = HistorialDao()
+    return render_template('retenciones/listaretenciones.html', lista = hd.to_dict())
 
 
 #ver la interfaz de guardar persona
