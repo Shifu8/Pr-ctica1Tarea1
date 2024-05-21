@@ -30,8 +30,8 @@ class PersonaControl:
         self._persona._id = self.__id_counter
         self._lista.add(self._persona, self._lista._lenght)
        
-    def eliminar(self, pos):
-        self._lista.delete(pos)
+    def eliminar(self, persona_id):
+        self._lista.delete(persona_id)
 
     def modificar(self, pos, apellidos, nombres, direccion, dni, telefono, tipoRuc):
         self._lista.edit(pos, apellidos, nombres, direccion, dni, telefono, tipoRuc)

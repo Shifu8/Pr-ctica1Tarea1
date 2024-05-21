@@ -64,43 +64,50 @@
                         role="form">
                         <div class="row">
                             <div class="col-lg-6 mb-3">
-                                <label for="numero" class="form-label text-white">Número:</label>
+                                <label for="numero" class="form-label text-black">Número:</label>
                                 <input type="text" name="numero" class="form-control" id="numero"
-                                    placeholder="Ingrese el número" required>
+                                    placeholder="Ingrese el número unico de la factura" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="dniPersonaEmisora" class="form-label text-white">DNI Persona
-                                    Emisora:</label>
-                                <input type="text" name="dniPersonaEmisora" class="form-control" id="dniPersonaEmisora"
-                                    placeholder="Ingrese el DNI de la persona emisora" required>
+                                <label for="dni" class="form-label text-black">DNI PERSONA EMISORA:</label>
+                                <input type="text" name="dni" class="form-control" id="dni" placeholder=""
+                                    value="{{ dni }}" required readonly>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="nombreReceptor" class="form-label text-white">Nombre Receptor:</label>
+                                <label for="nombreReceptor" class="form-label text-black">Nombre Receptor:</label>
                                 <input type="text" name="nombreReceptor" class="form-control" id="nombreReceptor"
                                     placeholder="Ingrese el nombre del receptor" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="fechaEmision" class="form-label text-white">Fecha de Emisión:</label>
+                                <label for="fechaEmision" class="form-label text-black">Fecha de Emisión:</label>
                                 <input type="date" name="fechaEmision" class="form-control" id="fechaEmision"
                                     placeholder="Ingrese la fecha de emisión" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="montoTotal" class="form-label text-white">Monto Total:</label>
+                                <label for="montoTotal" class="form-label text-black">Monto Total:</label>
                                 <input type="text" name="montoTotal" class="form-control" id="montoTotal"
                                     placeholder="Ingrese el monto total" required>
                             </div>
-                            <div class="col-lg-12 mt-4">
-                                <button id="boton" type="submit" class="form-control btn btn-primary">Guardar</button>
+                            <div class="col-lg-6 mb-3">
+                                <label for="ruc" class="form-label text-black">RUC:</label>
+                                <input type="text" name="ruc" class="form-control" id="ruc" placeholder=""
+                                    value="{{ ruc }}" required readonly>
                             </div>
                         </div>
-                    </form>
+                        <div class="col-lg-12 mt-4">
+                            <a href="/facturas" class="btn btn-primary form-control">Guardar</a>
+                        </div>
+
                 </div>
-            </div>
-            <div class="text-center mt-3">
-                <a href="/facturas" class="btn btn-danger">Volver</a>
+                </form>
             </div>
         </div>
+        <div class="text-center mt-3">
+            <a href="/facturas" class="btn btn-danger">Volver</a>
+        </div>
     </div>
+    </div>
+
 
     <!-- Registration Form End -->
 

@@ -3,7 +3,6 @@
 {% block content %}
 <div class="content-panel">
     <a href="personas" class="btn btn-primary mb-3">Volver</a>
-    <a href="facturas/ver" class="btn btn-danger mb-3">AGREGAR FACTURA</a>
     <div class="table-container">
         <table id="tabla" class="table table-bordered table-hover">
             <thead class="thead-dark">
@@ -14,8 +13,8 @@
                     <th>Nombre Receptor</th>
                     <th>Fecha Emisión</th>
                     <th>Monto Total</th>
+                    <th>RUC</th>
                     <th>Acciones</th>
-                    <th>Retenciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,13 +26,12 @@
                     <td>{{ item.nombreReceptor }}</td>
                     <td>{{ item.fechaEmision }}</td>
                     <td>{{ item.montoTotal }}</td>
+                    <td>{{ item.ruc }}</td>
                     <td>
-                        <a href="/facturas/editar/{{ item.id }}" class="btn btn-info btn-sm">Modificar</a>
-                        <a href="/facturas/eliminar/{{ item.id }}" class="btn btn-danger btn-sm"
-                            onclick="return confirm('¿Estás seguro de que deseas eliminar esta factura?');">Eliminar</a>
-                    </td>
-                    <td>
-                        <a href="retenciones" class="btn btn-primary btn-sm">Retener</a>
+                        <form action="/retenciones/ver" method="GET">
+                            <input type="hidden" name="factura_id" value="{{ item.id }}">
+                            <button type="submit" class="btn btn-primary">Retencion</button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}

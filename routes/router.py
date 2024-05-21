@@ -1,15 +1,29 @@
-from flask import Blueprint, abort , request, render_template, redirect, url_for
+from flask import Blueprint, abort , request, render_template, redirect, url_for, jsonify
 from flask import flash
+from flask import Flask
 from controls.personaDaoControl import PersonaDaoControl
 from models.personaEmisora import PersonaEmisora
 from controls.facturaDaoControl import FacturaDaoControl
 from models.factura import Factura
 from controls.historialDao import HistorialDao
 from models.historialRetenciones import HistorialRetenciones
+from controls.personaControl import PersonaControl
+from controls.facturaControl import FacturaControl
+from models.enumTipoRuc import EnumTipoRuc
 from flask_cors import CORS
+import json
 
+
+app = Flask(__name__)
+app.secret_key = '1234'
+
+cors = CORS(app)
 
 router = Blueprint('router', __name__)
+
+import secrets
+
+app.secret_key = secrets.token_hex(16)  # Genera una cadena hexadecimal de 16 bytes
 
 
 
@@ -33,58 +47,72 @@ def home2():
     return render_template('templateretenciones.html')
 
 
-#Ver la lista de las personas
 @router.route('/personas')
 def lista_personas():
     pc = PersonaDaoControl()
     return render_template('personas/listapersonas.html', lista = pc.to_dict())
 
-#Ver la lista de las personas
+
 @router.route('/facturas')
 def lista_facturas():
     fc = FacturaDaoControl()
     return render_template('facturas/listafacturas.html', lista = fc.to_dict())
 
-#Ver la lista de las personas
 @router.route('/retenciones')
 def lista_retenciones():
     hd = HistorialDao()
     return render_template('retenciones/listaretenciones.html', lista = hd.to_dict())
 
 
-#ver la interfaz de guardar persona
+
 @router.route('/personas/ver')
 def ver_personas():
    return render_template('personas/guardarpersonas.html')
 
-#ver la interfaz de guardar persona
 @router.route('/facturas/ver')
 def ver_facturas():
-   return render_template('facturas/guardarfacturas.html')
+    dni = request.args.get('dni')
+    ruc = request.args.get('ruc')
+    return render_template('facturas/guardarfacturas.html', dni=dni, ruc=ruc)
+
+@router.route('/retenciones/ver')
+def ver_retenciones():
+   return render_template('retenciones/guardarretenciones.html')
+
+
+
 
 @router.route('/personas/guardar', methods=["POST"])
 def guardar_personas():
     pd = PersonaDaoControl()
     data = request.form
-    
-    # Validar si los datos mínimos están presentes
-    if not all(key in data for key in ["apellidos", "nombres", "direccion", "dni", "telefono"]):
+
+    if not all(key in data for key in ["apellidos", "nombres", "direccion", "dni", "telefono", "tipoRuc"]):
         abort(400, "Faltan datos necesarios")
 
-    # Crear una nueva instancia de PersonaEmisora con los datos del formulario
     nueva_persona = PersonaEmisora()
     nueva_persona._apellidos = str(data["apellidos"])
     nueva_persona._nombres = str(data["nombres"])
     nueva_persona._direccion = str(data["direccion"])
     nueva_persona._dni = str(data["dni"])
     nueva_persona._telefono = str(data["telefono"])
-    nueva_persona._tipoRuc = "EDUCATIVO"  # Se define el tipo de RUC aquí, puedes modificarlo según tus necesidades
+    
+    # Validar y asignar el tipo de RUC
+    tipo_ruc = str(data["tipoRuc"])
+    if tipo_ruc not in ["8", "10"]:
+        abort(400, "Valor de RUC no válido")
+    
+    tipo_ruc_enum = EnumTipoRuc(int(tipo_ruc))
+    nueva_persona._tipoRuc = tipo_ruc_enum.name  # Guardar el nombre del Enum en lugar del valor numérico
 
-    # Guardar la nueva persona utilizando el método save de PersonaDaoControl
+    # Obtener la lista de personas para determinar el nuevo ID
+    lista_personas = pd._list()
+    nuevo_id = lista_personas._lenght + 1  # ID único basado en la longitud de la lista más 1
+    nueva_persona._id = nuevo_id
+
     pd._save(nueva_persona)
 
     return redirect("/personas", code=302)
-
 
 @router.route('/facturas/guardar', methods=["POST"])
 def guardar_facturas():
@@ -92,87 +120,117 @@ def guardar_facturas():
     data = request.form
     
     # Validar si los datos mínimos están presentes
-    if not all(key in data for key in ["numero", "dniPersonaEmisora", "nombreReceptor", "fechaEmision", "montoTotal"]):
+    if not all(key in data for key in ["numero", "dniPersonaEmisora", "nombreReceptor", "fechaEmision", "montoTotal", "ruc"]):
         abort(400, "Faltan datos necesarios")
 
-    # Crear una nueva instancia de Factura con los datos del formulario
     nueva_factura = Factura()
     nueva_factura._numero = str(data["numero"])
-    nueva_factura._dniPersonaEmisora = str(data["dniPersonaEmisora"])
+    nueva_factura._dniPersonaEmisora = str(data["dniPersonaEmisora"])  
     nueva_factura._nombreReceptor = str(data["nombreReceptor"])
     nueva_factura._fechaEmision = str(data["fechaEmision"])
     nueva_factura._montoTotal = str(data["montoTotal"])
+    nueva_factura._ruc = str(data["ruc"])
 
-    # Guardar la nueva factura utilizando el método save de FacturaDaoControl
+
+    # Obtener la lista de personas para determinar el nuevo ID
+    lista_facturas = fd._list()
+    nuevo_id = lista_facturas._lenght + 1  # ID único basado en la longitud de la lista más 1
+    nueva_factura._id = nuevo_id
+    
     fd._save(nueva_factura)
 
     return redirect("/facturas", code=302)
 
+@router.route('/retenciones/guardar', methods=["POST"])
+def guardar_retenciones():
+    hd = HistorialDao()
+    data = request.form
 
-@router.route('/personas/editar/<int:id>', methods=["GET"])
-def ver_editarPersonas(id):
-    pd = PersonaDaoControl()
-    lista_personas = pd._lista
-    if lista_personas.is_empty():
-        abort(404, "No hay personas para editar")
+    if not all(key in data for key in ["fecha", "numeroFactura", "porcentaje", "montoRetenido"]):
+        abort(400, "Faltan datos necesarios")
+
+    nuevo_historial = HistorialRetenciones()
+    nuevo_historial._fecha = str(data["fecha"])
+    nuevo_historial._numeroFactura = str(data["numeroFactura"])
+    nuevo_historial._porcentaje = str(data["porcentaje"])
+    nuevo_historial._montoRetenido = str(data["montoRetenido"])
     
-    if id < 0 or id > lista_personas.size():
-        abort(404, "El ID de la persona está fuera de rango")
+    # Obtener la lista de personas para determinar el nuevo ID
+    lista_retenciones = hd._list()
+    nuevo_id = lista_retenciones._lenght + 1  # ID único basado en la longitud de la lista más 1
+    nuevo_historial._idRetencion = nuevo_id
+    
+    hd._save(nuevo_historial)
 
-    persona = lista_personas.getNode(id)  # Restar 1 porque los índices comienzan desde 0
-    if persona:
-        return render_template("personas/editarpersonas.html", data=persona)
-    else:
-        abort(404, "Persona no encontrada")
+    return redirect("/retenciones", code=302)
+
+
+@router.route('/personas/eliminar/<int:persona_id>', methods=["POST"])
+def eliminar_persona(persona_id):
+    pc = PersonaControl()
+    try:
+        pc.eliminar(persona_id)
+        
+        # Eliminar la persona del JSON
+        with open('data/personaemisora.json', 'r') as file:
+            personas = json.load(file)
+        personas = [persona for persona in personas if persona['id'] != persona_id]
+        with open('data/personaemisora.json', 'w') as file:
+            json.dump(personas, file, indent=4)
+
+        return jsonify({"message": "Persona eliminada correctamente.", "persona_id": persona_id}), 200
+    except Exception as e:
+        return jsonify({"error": f"No se pudo eliminar la persona: {str(e)}"}), 500
+ 
+ 
+    
+@router.route('/facturas/eliminar/<int:factura_id>', methods=["POST"])
+def eliminar_factura(factura_id):
+    fc = FacturaControl()
+    try:
+        fc.eliminar(factura_id)
+        
+        # Eliminar la persona del JSON
+        with open('data/factura.json', 'r') as file:
+            facturas = json.load(file)
+        facturas = [factura for factura in facturas if factura['id'] != factura_id]
+        with open('data/factura.json', 'w') as file:
+            json.dump(facturas, file, indent=4)
+
+        return jsonify({"message": "Factura eliminada correctamente.", "factura_id": factura_id}), 200
+    except Exception as e:
+        return jsonify({"error": f"No se pudo eliminar la factura: {str(e)}"}), 500
+
+
+
+
+@router.route('/personas/editar/<pos>')
+def ver_editar(pos):
+    pd = PersonaDaoControl()
+    nene = pd._list().getNode(int(pos)-1)
+    print(nene)
+    return render_template("personas/editarpersonas.html", data = nene )
+
 
 
 @router.route('/personas/modificar', methods=["POST"])
 def modificar_personas():
     pd = PersonaDaoControl()
     data = request.form
+    pos = data["id"]
+    nene = pd._list().getNode(int(pos)-1)   #nene = pd._list().getNode(int(data["id"]) -1)
+    
+    if not "apellidos" in data.keys():
+        abort(400)
+        
+    #TODO ...Validar
+    pd._persona = nene
+    pd._persona._apellidos = data["apellidos"]
+    pd._persona._nombres = data["nombres"]
+    pd._persona._direccion = data["direccion"]
+    pd._persona._dni = data["dni"]
+    pd._persona._telefono = data["telefono"]
+    pd._persona._tipoRuc = str(data["tipoRuc"])
 
-    persona_id = data.get("id")
-    if not persona_id:
-         abort(400, "ID de persona no proporcionado")
-    try:
-        persona_id = int(persona_id)
-    except ValueError:
-        abort(400, "ID de persona no válido")
-
-
-    # Obtener la persona correspondiente al ID
-    persona = pd._lista.getNode(persona_id)  # Restar 1 porque los índices comienzan desde 0
-
-    # Verificar si la persona existe
-    if not persona:
-        abort(404, "Persona no encontrada")
-
-    # Actualizar los datos de la persona con los valores del formulario
-    if "apellidos" in data:
-        persona._apellidos = str(data["apellidos"])
-    if "nombres" in data:
-        persona._nombres = str(data["nombres"])
-    if "direccion" in data:
-        persona._direccion = str(data["direccion"])
-    if "dni" in data:
-        persona._dni = str(data["dni"])
-    if "telefono" in data:
-        persona._telefono = str(data["telefono"])
-    if "tipoRuc" in data:
-        persona._tipoRuc = str(data["tipoRuc"])
-
-    # Guardar los cambios en la base de datos
-    pd._merge(persona, persona_id - 1)  # Restar 1 porque los índices comienzan desde 0
-
-    # Redirigir a la página de personas después de modificar
+    pd.merge(int(pos)-1)
     return redirect("/personas", code=302)
-
-
-
-@router.route('/personas/eliminar/<int:id>', methods=['DELETE'])
-def eliminar_persona(id):
-    pd = PersonaDaoControl()
-    pd.delete(id)
-    flash("La persona ha sido eliminada exitosamente", "success")
-    return redirect("/personas")
-

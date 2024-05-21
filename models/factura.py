@@ -8,6 +8,15 @@ class Factura:
         self.__nombreReceptor = ''
         self.__fechaEmision = ''
         self.__montoTotal = 0.0
+        self.__ruc = ''
+
+    @property
+    def _ruc(self):
+        return self.__ruc
+
+    @_ruc.setter
+    def _ruc(self, value):
+        self.__ruc = value
 
     @property
     def _id(self):
@@ -66,6 +75,7 @@ class Factura:
             "nombreReceptor": self.__nombreReceptor,
             "fechaEmision": self.__fechaEmision,
             "montoTotal": self.__montoTotal,
+            "ruc": self.__ruc
         }
     
     def deserializar(data):
@@ -76,7 +86,8 @@ class Factura:
         factura._nombreReceptor = data["nombreReceptor"] 
         factura._fechaEmision = data["fechaEmision"]
         factura._montoTotal = data["montoTotal"]
+        factura._ruc = data["ruc"]
         return factura
     
     def __str__(self):
-        return f"ID: {self._id}, Número: {self._numero}, DNI Persona Emisora: {self._dniPersonaEmisora}, Nombre Receptor: {self._nombreReceptor}, Fecha Emisión: {self._fechaEmision}, Monto Total: {self._montoTotal}"
+        return f"ID: {self._id}, Número: {self._numero}, DNI Persona Emisora: {self._dniPersonaEmisora}, Nombre Receptor: {self._nombreReceptor}, Fecha Emisión: {self._fechaEmision}, Monto Total: {self._montoTotal}, RUC: {self._ruc}"

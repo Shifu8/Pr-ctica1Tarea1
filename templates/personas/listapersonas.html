@@ -3,6 +3,15 @@
 {% block content %}
 <div class="content-panel">
     <a href="personas/ver" class="btn btn-danger mb-3">AGREGAR PERSONA</a>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="flash-{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     <div class="table-container">
         <table id="tabla" class="table table-bordered table-hover">
             <thead class="thead-dark">
@@ -19,26 +28,66 @@
             </thead>
             <tbody>
                 {% for item in lista %}
-                <tr>
+                <tr id="persona_{{ item.id }}"> <!-- Agregamos el ID único -->
                     <td>{{ loop.index }}</td>
                     <td>{{ item.apellidos }} {{ item.nombres }}</td>
                     <td>{{ item.dni }}</td>
                     <td>{{ item.telefono }}</td>
                     <td>{{ item.direccion }}</td>
-                    <td>{{ item.tipoRuc }}</td>
                     <td>
-                        <a href="/personas/editar/{{ item.id }}" class="btn btn-info btn-sm">Modificar</a>
-                        <a href="/personas/eliminar/{{ item.id }}" class="btn btn-danger btn-sm"
-                            onclick="return confirm('¿Estás seguro de que deseas eliminar esta persona?');">Eliminar</a>
-                        <a href="facturas/ver" class="btn btn-primary btn-sm">Agregar Factura</a>
+                        {% if item.tipoRuc == 'EDUCATIVO' %}
+                        Educacional
+                        {% elif item.tipoRuc == 'PROFESIONAL' %}
+                        Profesional
+                        {% else %}
+                        Desconocido
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex">
+                            <a href="/facturas/ver?dni={{ item.dni }}&ruc={{ item.tipoRuc }}"
+                                class="btn btn-primary btn-sm me-2">Agregar Factura</a>
+                            <form id="eliminar_form_{{ item.id }}" action="/personas/eliminar/{{ item.id }}"
+                                method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
                     </td>
                     <td>
                         <a href="facturas" class="btn btn-secondary btn-sm">Ver Facturas</a>
                     </td>
+
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('form[id^="eliminar_form_"]').submit(function (event) {
+            event.preventDefault();
+            var form = $(this);
+            var persona_id = form.attr('id').split('_')[2];
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    // Eliminar la fila de la tabla
+                    $('#persona_' + persona_id).remove();
+                    // Mostrar mensaje de confirmación
+                    alert("Persona eliminada correctamente.");
+                },
+                error: function (xhr, status, error) {
+                    // Manejar errores
+                    alert('Error: ' + xhr.responseJSON.error);
+                }
+            });
+        });
+    });
+</script>
+
 {% endblock %}

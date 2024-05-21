@@ -16,7 +16,6 @@ class FacturaDaoControl(DaoAdapter):
     def _factura(self, value):
         self.__factura = value
 
-    @property
     def _lista(self):
         return self._list()
     

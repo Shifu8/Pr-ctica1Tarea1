@@ -5,6 +5,7 @@ class PersonaDaoControl(DaoAdapter):
     def __init__(self):
         super().__init__(PersonaEmisora)
         self.__persona = None
+        self.__id_counter = 0
 
     @property
     def _persona(self):
@@ -16,27 +17,16 @@ class PersonaDaoControl(DaoAdapter):
     def _persona(self, value):
         self.__persona = value
 
-    @property
     def _lista(self):
         return self._list()
     
     @property
     def save(self):
-        self._persona._id = self._lista._lenght + 1
+        self._persona._id = self._lista + 1  # Aquí asignas el ID
         self._save(self._persona)
     
     def merge(self, pos):
         self._merge(self._persona, pos)
         
-    def delete(self, pos):
-        self._delete(pos)
         
-    def get_persona_by_id(self, id):
-        personas = self._lista
-        for persona in personas:
-            if persona._id == id:
-                return persona
-        return None
-
-
         

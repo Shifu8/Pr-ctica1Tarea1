@@ -1,7 +1,17 @@
-<a href="#" class="btn btn-danger btn-sm"
-    onclick="event.preventDefault(); document.getElementById('eliminar-form-{{ item.id }}').submit();">
-    Eliminar
-</a>
-<form id="eliminar-form-{{ item.id }}" action="/personas/eliminar/{{ item.id }}" method="POST" style="display: none;">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-</form>
+{% extends "templatefacturas.html" %}
+
+{% block content %}
+<div class="content-panel">
+    <h2>¿Está seguro de que desea eliminar a esta factura?</h2>
+    <p><strong>Número:</strong> {{ factura.numero }}</p>
+    <p><strong>DNI Persona Emisora:</strong> {{ factura.dniPersonaEmisora }}</p>
+    <p><strong>Nombre Receptor:</strong> {{ factura.nombreReceptor }}</p>
+    <p><strong>Fecha Emisión:</strong> {{ factura.fechaEmision }}</p>
+    <p><strong>Monto Total:</strong> {{ factura.montoTotal }}</p>
+    <p><strong>RUC:</strong> {{ factura.ruc }}</p>
+    <form method="POST" action="{{ url_for('router.eliminar_factura', factura_id=factura.id) }}">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{{ url_for('router.lista_facturas') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

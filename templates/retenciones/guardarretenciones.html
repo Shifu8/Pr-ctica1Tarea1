@@ -34,7 +34,7 @@
     <!-- Navbar Start -->
     <div class="container-fluid p-0 nav-bar">
         <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
-            <a href="templatepersonas.html" class="navbar-brand px-lg-4 m-0">
+            <a href="templateretenciones.html" class="navbar-brand px-lg-4 m-0">
                 <h1 class="m-0 display-4 text-uppercase text-white">sistema de Retencion de Facturas</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -50,7 +50,7 @@
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5"
             style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Registro de Personas</h1>
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Retencion de factura</h1>
         </div>
     </div>
     <!-- Page Header End -->
@@ -59,55 +59,42 @@
         <div class="container content-panel p-4">
             <div class="card shadow">
                 <div class="card-body">
-                    <form id="form" class="custom-form booking-form" action="/personas/guardar" method="post"
+                    <form id="form" class="custom-form booking-form" action="/retenciones/guardar" method="post"
                         role="form">
                         <div class="row">
                             <div class="col-lg-6 mb-3">
-                                <label for="dni" class="form-label text-white">DNI:</label>
-                                <input type="text" name="dni" class="form-control" id="dni" placeholder="Ingrese el DNI"
-                                    required>
+                                <label for="fecha" class="form-label text-white">Fecha:</label>
+                                <input type="date" name="fecha" class="form-control" id="fecha" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="apellidos" class="form-label text-white">Apellidos:</label>
-                                <input type="text" name="apellidos" class="form-control" id="apellidos"
-                                    placeholder="Ingrese los apellidos" required>
+                                <label for="numeroFactura" class="form-label text-white">Número de Factura:</label>
+                                <input type="text" name="numeroFactura" class="form-control" id="numeroFactura"
+                                    placeholder="Ingrese el número de factura" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="nombres" class="form-label text-white">Nombres:</label>
-                                <input type="text" name="nombres" class="form-control" id="nombres"
-                                    placeholder="Ingrese los nombres" required>
+                                <label for="porcentaje" class="form-label text-white">Porcentaje:</label>
+                                <input type="number" step="0.01" name="porcentaje" class="form-control" id="porcentaje"
+                                    placeholder="Ingrese el porcentaje" required>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="telefono" class="form-label text-white">Teléfono:</label>
-                                <input type="text" name="telefono" class="form-control" id="telefono"
-                                    placeholder="Ingrese el teléfono" required>
+                                <label for="montoRetenido" class="form-label text-white">Monto Retenido:</label>
+                                <input type="number" step="0.01" name="montoRetenido" class="form-control"
+                                    id="montoRetenido" placeholder="Ingrese el monto retenido" required>
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="direccion" class="form-label text-white">Dirección:</label>
-                                <input type="text" name="direccion" class="form-control" id="direccion"
-                                    placeholder="Ingrese la dirección" required>
-                            </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="tipo_ruc" class="form-label text-white">Tipo de RUC:</label>
-                                <select name="tipoRuc" class="form-select" id="tipo_ruc">
-                                    <option value="8">RUC Educativo</option>
-                                    <option value="10">RUC Profesional</option>
-                                </select>
-                            </div>
-
                             <div class="col-lg-12 mt-4">
-                                <button id="boton" type="submit" class="form-control btn btn-primary">Guardar</button>
+                                <button id="boton" type="submit" class="form-control btn btn-primary">RETENER</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="text-center mt-3">
-                <a href="/personas" class="btn btn-danger">Volver</a>
+                <a href="/facturas" class="btn btn-danger">Volver</a>
             </div>
         </div>
     </div>
 
+    <!-- Registration Form End -->
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>

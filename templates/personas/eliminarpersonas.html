@@ -1,7 +1,16 @@
-<a href="#" class="btn btn-danger btn-sm"
-    onclick="event.preventDefault(); document.getElementById('eliminar-form-{{ item.id }}').submit();">
-    Eliminar
-</a>
-<form id="eliminar-form-{{ item.id }}" action="/personas/eliminar/{{ item.id }}" method="POST" style="display: none;">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-</form>
+{% extends "templatepersonas.html" %}
+
+{% block content %}
+<div class="content-panel">
+    <h2>¿Está seguro de que desea eliminar a esta persona?</h2>
+    <p><strong>Apellidos y Nombres:</strong> {{ persona.apellidos }} {{ persona.nombres }}</p>
+    <p><strong>DNI:</strong> {{ persona.dni }}</p>
+    <p><strong>Teléfono:</strong> {{ persona.telefono }}</p>
+    <p><strong>Dirección:</strong> {{ persona.direccion }}</p>
+    <p><strong>Tipo RUC:</strong> {{ persona.tipoRuc }}</p>
+    <form method="POST" action="{{ url_for('router.eliminar_persona', persona_id=persona.id) }}">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{{ url_for('router.lista_personas') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,1 +1,20 @@
-[{"id": 0, "apellidos": ["sdsd"], "nombres": ["sdsd"], "direccion": ["sdsd"], "dni": ["sdsd"], "telefono": ["sdsd"], "tipoRuc": "EDUCATIVO"},{"id": 0, "apellidos": "sdsd", "nombres": "sdsdsd", "direccion": "sdsds", "dni": "sdsd", "telefono": "sdsdsd", "tipoRuc": "EDUCATIVO"},{"id": 0, "apellidos": "Medina", "nombres": "sdsd", "direccion": "dasasd", "dni": "1234567891", "telefono": "455454545", "tipoRuc": "EDUCATIVO"}]
+[
+    {
+        "id": 1,
+        "apellidos": "dasdas",
+        "nombres": "asdasd",
+        "direccion": "asdads",
+        "dni": "asddas",
+        "telefono": "dsaadsasd",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 3,
+        "apellidos": "ewrewr",
+        "nombres": "ewrrwwre",
+        "direccion": "rewrewewr",
+        "dni": "rewrewr",
+        "telefono": "ewrwer",
+        "tipoRuc": "PROFESIONAL"
+    }
+]

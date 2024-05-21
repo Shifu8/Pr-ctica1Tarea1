@@ -33,6 +33,6 @@ class FacturaControl:
     def eliminar(self, pos):
         self._lista.delete(pos)
 
-    def modificar(self, pos, numero, dniPersonaEmisora, fechaEmision, montoTotal):
-        self._lista.edit(pos, numero, dniPersonaEmisora, fechaEmision, montoTotal)
+    def modificar(self, pos, numero, dniPersonaEmisora, fechaEmision, montoTotal, ruc):
+        self._lista.edit(pos, numero, dniPersonaEmisora, fechaEmision, montoTotal, ruc)
     
