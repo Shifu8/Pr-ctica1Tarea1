@@ -114,25 +114,27 @@ def guardar_personas():
 
     return redirect("/personas", code=302)
 
+
 @router.route('/facturas/guardar', methods=["POST"])
 def guardar_facturas():
     fd = FacturaDaoControl()
     data = request.form
     
+    # Imprimir los datos recibidos para depuración
+    print("Datos recibidos:", data)
+    
     # Validar si los datos mínimos están presentes
-    if not all(key in data for key in ["numero", "dniPersonaEmisora", "nombreReceptor", "fechaEmision", "montoTotal", "ruc"]):
+    if not all(key in data for key in ["numero", "nombreReceptor", "fechaEmision", "montoTotal", "dni", "ruc"]):
         abort(400, "Faltan datos necesarios")
 
     nueva_factura = Factura()
-    nueva_factura._numero = str(data["numero"])
-    nueva_factura._dniPersonaEmisora = str(data["dniPersonaEmisora"])  
+    nueva_factura._numero = str(data["numero"]) 
     nueva_factura._nombreReceptor = str(data["nombreReceptor"])
     nueva_factura._fechaEmision = str(data["fechaEmision"])
     nueva_factura._montoTotal = str(data["montoTotal"])
-    nueva_factura._ruc = str(data["ruc"])
+    nueva_factura._dniPersonaEmisora = str(data["dni"])  # Usar el DNI heredado de la persona
+    nueva_factura._ruc = str(data["ruc"])  # Usar el RUC heredado de la persona
 
-
-    # Obtener la lista de personas para determinar el nuevo ID
     lista_facturas = fd._list()
     nuevo_id = lista_facturas._lenght + 1  # ID único basado en la longitud de la lista más 1
     nueva_factura._id = nuevo_id
@@ -140,6 +142,7 @@ def guardar_facturas():
     fd._save(nueva_factura)
 
     return redirect("/facturas", code=302)
+
 
 @router.route('/retenciones/guardar', methods=["POST"])
 def guardar_retenciones():
@@ -200,37 +203,3 @@ def eliminar_factura(factura_id):
         return jsonify({"message": "Factura eliminada correctamente.", "factura_id": factura_id}), 200
     except Exception as e:
         return jsonify({"error": f"No se pudo eliminar la factura: {str(e)}"}), 500
-
-
-
-
-@router.route('/personas/editar/<pos>')
-def ver_editar(pos):
-    pd = PersonaDaoControl()
-    nene = pd._list().getNode(int(pos)-1)
-    print(nene)
-    return render_template("personas/editarpersonas.html", data = nene )
-
-
-
-@router.route('/personas/modificar', methods=["POST"])
-def modificar_personas():
-    pd = PersonaDaoControl()
-    data = request.form
-    pos = data["id"]
-    nene = pd._list().getNode(int(pos)-1)   #nene = pd._list().getNode(int(data["id"]) -1)
-    
-    if not "apellidos" in data.keys():
-        abort(400)
-        
-    #TODO ...Validar
-    pd._persona = nene
-    pd._persona._apellidos = data["apellidos"]
-    pd._persona._nombres = data["nombres"]
-    pd._persona._direccion = data["direccion"]
-    pd._persona._dni = data["dni"]
-    pd._persona._telefono = data["telefono"]
-    pd._persona._tipoRuc = str(data["tipoRuc"])
-
-    pd.merge(int(pos)-1)
-    return redirect("/personas", code=302)

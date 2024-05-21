@@ -5,7 +5,6 @@ class PersonaDaoControl(DaoAdapter):
     def __init__(self):
         super().__init__(PersonaEmisora)
         self.__persona = None
-        self.__id_counter = 0
 
     @property
     def _persona(self):
