@@ -1,35 +1,52 @@
 import sys
-sys.path.append('../')
-from controls.personaDaoControl import PersonaDaoControl
-from controls.facturaDaoControl import FacturaDaoControl
-from controls.historialDao import HistorialDao
+sys.path.append('../')  # Ajusta la ruta según la ubicación de tu archivo sorting.py
 
+import random
+import time
+from controls.tda.linked.merge import MergeSort
+from controls.tda.linked.quick import QuickSort
+from controls.tda.linked.shell import ShellSort
+from controls.tda.linked.binarySearch import BinarySearch
+from controls.tda.linked.linearSearch import LinearSearch 
 
-pcd = PersonaDaoControl()
-fcd = FacturaDaoControl()
-hd = HistorialDao()
+def main():
+    sizes = [10000, 20000, 25000]
+    sorters = {
+        "MergeSort": MergeSort(),
+        "QuickSort": QuickSort(),
+        "ShellSort": ShellSort()
+    }
+    searchers = {
+        "BinarySearch": BinarySearch(),
+        "LinearSearch": LinearSearch()
+    }
+    
+    for size in sizes:
+        print(f"\n\033[93mOrdenar array por tamaño de: {size}:\033[0m")
+        print("**Metodos de Ordenamiento:")
+        data = [random.randint(1, 100000) for _ in range(size)]
+        
+        for sorter_name, sorter in sorters.items():
+            data_copy = data.copy()
+            start_time = time.time()
+            sorter.sort_primitive_ascendent(data_copy)
+            end_time = time.time()
+            print(f"{sorter_name}: {end_time - start_time:.5f} seconds")
+        
+        # Búsqueda de un valor aleatorio en el arreglo
+        print(f"\n**Metodos de Busqueda:")
+        query = random.choice(data)
+        query_attribute = 0  # Usado para búsqueda en datos primitivos
 
-pcd._persona._apellidos = "Criollo"
-pcd._persona._nombres = "Angy"
-pcd._persona._telefono = "0964209135"
-pcd._persona.__dni = "1111111111"
-pcd.save
+        for searcher_name, searcher in searchers.items():
+            data_copy = data.copy()
+            start_time = time.time()
+            if searcher_name == "BinarySearch":
+                searcher.search(data_copy, query_attribute, query, starts_with=False)
+            else:
+                searcher.search(data_copy, query_attribute, query, starts_with=False)
+            end_time = time.time()
+            print(f"{searcher_name}: {end_time - start_time:.5f} seconds")
 
-pcd._persona._apellidos = "Criollo"
-pcd._persona._nombres = "sAngy"
-pcd._persona._telefono = "0964209135"
-pcd.save
-
-fcd._factura._dniPersonaEmisora = "1111111111"
-fcd._factura._numero = "2024-05-20"
-fcd._factura._nombreReceptor = "Lucho"
-fcd._factura._montoTotal = 1000
-fcd.save
-
-hd._historial._idRetencion = 1
-hd._historial._fecha = "fecha"
-hd._historial._numeroFactura = "numeroFactura"
-hd._historial._porcentaje = "porcentaje"
-hd._historial._montoRetenido = "montoRetenido"
-hd.save
-
+if __name__ == "__main__":
+    main()

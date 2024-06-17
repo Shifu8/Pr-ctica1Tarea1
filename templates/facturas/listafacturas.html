@@ -2,7 +2,41 @@
 
 {% block content %}
 <div class="content-panel">
-    <a href="personas" class="btn btn-primary mb-3">Volver</a>
+
+    <!-- Title Section -->
+    <div class="text-center w-100">
+        <h1 class="display-20 text-uppercase text-black" style="margin: 0; margin-bottom: 5px;">LISTA DE FACTURAS</h1>
+    </div>
+
+
+    <!-- Botón Volver -->
+    <a href="personas" class="btn btn-danger mb-3">Volver</a>
+
+    <!-- Search Form -->
+    <div class="d-flex mb-4">
+        <form method="GET" action="/personas/buscar" class="flex-grow-1 d-flex align-items-center">
+            <div class="input-group">
+                <input type="text" class="form-control rotating-placeholder" placeholder="Buscar por apellidos"
+                    name="apellido" required>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Buscar</button>
+                </div>
+            </div>
+            <div class="ml-3 d-flex align-items-center">
+                <label for="metodo_busqueda" class="mr-2"></label>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-secondary active">
+                        <input type="radio" name="metodo_busqueda" id="binario" value="binario" autocomplete="off"
+                            checked> Binaria
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        <input type="radio" name="metodo_busqueda" id="lineal" value="lineal" autocomplete="off"> Lineal
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="table-container">
         <table id="tabla" class="table table-bordered table-hover">
             <thead class="thead-dark">
@@ -15,6 +49,7 @@
                     <th>Monto Total</th>
                     <th>RUC</th>
                     <th>Acciones</th>
+                    <th>Retención</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +63,21 @@
                     <td>{{ item.montoTotal }}</td>
                     <td>{{ item.ruc }}</td>
                     <td>
+                        <div class="d-flex">
+                            <a href="/facturas/editar/{{item.id}}" class="btn btn-sm me-2"
+                                style="background-color: #d8b862; color: white; border: none; padding: 5px 22px; border-radius: 6px;">
+                                MODIFICAR
+                            </a>
+                            <form id="eliminar_form_{{ item.id }}" action="/facturas/eliminar/{{ item.id }}"
+                                method="POST">
+                                <button type="submit" class="btn btn-sm"
+                                    style="background-color: #d43737; color: white; border: none; padding: 5px 15px; border-radius: 6px;">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    <td>
                         <form action="/retenciones/ver" method="GET">
                             <input type="hidden" name="factura_id" value="{{ item.id }}">
                             <button type="submit" class="btn btn-primary">Retencion</button>
@@ -39,4 +89,30 @@
         </table>
     </div>
 </div>
+
+<!-- Script para confirmar eliminación -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('form[id^="eliminar_form_"]').submit(function (event) {
+            if (!confirm('¿Estás seguro de que deseas eliminar esta factura?')) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+<!-- Script para cambiar placeholder de búsqueda -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const placeholders = ["Buscar por cedula", "Buscar por fecha"];
+        let index = 0;
+        const input = document.querySelector('.rotating-placeholder');
+
+        setInterval(() => {
+            index = (index + 1) % placeholders.length;
+            input.placeholder = placeholders[index];
+        }, 1000);
+    });
+</script>
 {% endblock %}

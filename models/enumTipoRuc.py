@@ -3,7 +3,7 @@ class EnumTipoRuc(enum.Enum):
     
     EDUCATIVO = 8
     PROFESIONAL = 10
-
+    
     def getValue(self):
         return self.value
     

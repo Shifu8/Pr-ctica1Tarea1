@@ -27,5 +27,5 @@ class PersonaDaoControl(DaoAdapter):
     def merge(self, pos):
         self._merge(self._persona, pos)
         
-        
+    
         

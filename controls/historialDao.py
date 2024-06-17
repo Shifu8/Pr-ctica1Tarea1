@@ -16,7 +16,6 @@ class HistorialDao(DaoAdapter):
     def _historial(self, value):
         self.__historial = value
 
-    @property
     def _lista(self):
         return self._list()
     

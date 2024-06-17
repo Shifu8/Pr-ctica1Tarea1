@@ -1,7 +1,12 @@
 from controls.tda.linked.node import Node
 from controls.exception.arrayPositionException import ArrayPositionException
 from controls.exception.linkedEmpty import LinkedEmpty
-
+from numbers import Number
+from controls.tda.linked.burbuja import Burbuja
+from controls.tda.linked.insercion import Insercion
+from controls.tda.linked.merge import MergeSort
+from controls.tda.linked.quick import QuickSort 
+from controls.tda.linked.shell import ShellSort 
 class Linked_List(object):
     def __init__(self):
         self.__head = None  
@@ -66,7 +71,7 @@ class Linked_List(object):
         if self.isEmpty:
             raise LinkedEmpty("List empty")
         elif pos < 0 or pos >= self._lenght:
-            raise ArrayPositionException("Index out range")
+            print ("FUERA DE RANGO")
         elif pos == 0:
             return self.__head
         elif pos == (self.__lenght - 1):
@@ -128,7 +133,7 @@ class Linked_List(object):
         if self.isEmpty:
             raise LinkedEmpty("List empty")
         elif pos < 0 or pos >= self._lenght:
-            raise ArrayPositionException("Index out range")
+            print ("FUERA DE RANGO")
         elif pos == 0:
             return self.__head._data
         elif pos == (self.__lenght - 1):
@@ -166,4 +171,141 @@ class Linked_List(object):
                 out += str(node._data) + "\t"
                 node = node._next          
         return out
+    
+    #Pasar la lista a arreglo
+    @property
+    def toArray(self):
+        array = []
+        if not self.isEmpty:
+            node = self.__head
+            cont = 0
+            while cont < self._lenght:
+                array.append(node._data)
+                cont += 1
+                node = node._next
+
+        return array
+        
+    def toList(self, array):
+        self.clear
+        for i in range(0, len(array)):
+            self.__addLast__(array[i])
+
+    def sort(self, sort_method="merge", type=1):
+        if self.isEmpty:
+            raise LinkedEmpty("Lista vacía")
+        else:
+            array = self.toArray
+
+            if isinstance(array[0], (Number, str)):  # Verifica si los elementos son datos primitivos
+                if sort_method == "quick":
+                    order = QuickSort()
+                elif sort_method == "shell":
+                    order = ShellSort()
+                else:  # Por defecto usa MergeSort
+                    order = MergeSort()
+                
+                if type == 1:  # Ascendente
+                    array = order.sort_primitive_ascendent(array)
+                else:  # Descendente
+                    array = order.sort_primitive_descendent(array)
+            
+            self.toList(array)
+            return self
+
+    def sort_models(self, sort_method="merge", attribute=None, type=1):
+        if self.isEmpty:
+            raise LinkedEmpty("Lista vacía")
+        else:
+            array = self.toArray
+
+            if isinstance(array[0], object):  # Verifica si los elementos son objetos
+                if sort_method == "quick":
+                    order = QuickSort()
+                elif sort_method == "shell":
+                    order = ShellSort()
+                else:  # Por defecto usa MergeSort
+                    order = MergeSort()
+
+                if type == 1:  # Ascendente
+                    array = order.sort_models_ascendent(array, attribute)
+                else:  # Descendente
+                    array = order.sort_models_descendent(array, attribute)
+                
+            self.toList(array)
+            return self
+
+    def search_equals(self, data):
+        list = Linked_List()
+        if self.isEmpty:
+            raise LinkedEmpty("List empty")
+        else:
+            array = self.toArray
+            #print(array[i])
+            for i in range(0, len(array)):
+                #print(type(array[i]))
+                if(array[i].lower().__contains__ (data.lower())):    #startswith
+                    list.add(array[i], list._lenght)
+        return list
+
+##############################################################
+            #En caso de los datos numéricos 
+import random
+
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+
+        merge_sort(L)
+        merge_sort(R)
+
+        i = j = k = 0
+
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[len(arr) // 2]
+        left = [x for x in arr if x < pivot]
+        middle = [x for x in arr if x == pivot]
+        right = [x for x in arr if x > pivot]
+        return quick_sort(left) + middle + quick_sort(right)
+
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
+
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            arr[j] = temp
+        gap //= 2
+
+def generate_random_array(size):
+    return [random.randint(1, 1000000) for _ in range(size)]
     

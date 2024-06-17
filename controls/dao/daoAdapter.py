@@ -48,13 +48,15 @@ class DaoAdapter(Generic[T]):
         a.write(self.__transform__())
         a.close()
         
-            
+        
     def _merge(self, data: T, pos) -> T:
+        print("Guardando")
         self._list()
         self.lista.edit(data, pos)
-        a = open(self.URL + self.file, "w")
-        a.write(self.__transform__())
-        a.close()
+        f = open(self.URL + self.file, "w")
+        print("Nombre del archivo: "+self.file)
+        f.write(self.__transform__())
+        f.close()
       
     def _delete(self, pos) -> T:
         self._list()

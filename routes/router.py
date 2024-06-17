@@ -11,7 +11,15 @@ from controls.personaControl import PersonaControl
 from controls.facturaControl import FacturaControl
 from models.enumTipoRuc import EnumTipoRuc
 from flask_cors import CORS
+from controls.tda.linked.merge import MergeSort
+from controls.tda.linked.quick import QuickSort
+from controls.tda.linked.shell import ShellSort
+from controls.tda.linked.binarySearch import BinarySearch
+from controls.tda.linked.linearSearch import LinearSearch
 import json
+import json
+import json
+import time
 
 
 app = Flask(__name__)
@@ -167,6 +175,123 @@ def guardar_retenciones():
 
     return redirect("/retenciones", code=302)
 
+
+@router.route('/personas/editar/<pos>')
+def ver_editarPersonas(pos):
+    pd = PersonaDaoControl()
+    nene = pd._list().get(int(pos)-1)
+    print(nene)
+    return render_template("personas/modificarpersonas.html", data = nene )
+
+#MODIFICAR PERSONAS
+@router.route('/personas/modificar', methods=["POST"])
+def modificar_personas():
+    pd = PersonaDaoControl()
+    data = request.form
+    pos = data["id"]
+    nene = pd._list().get(int(data["id"]) -1)
+    if not "apellidos" in data.keys():
+        abort(400)
+    
+    #TODO ...Validar
+    pd._persona = nene
+    pd._persona._id = data ["id"]
+    pd._persona._apellidos = data["apellidos"]
+    pd._persona._nombres = data["nombres"]
+    pd._persona._direccion = data["direccion"]
+    pd._persona._dni = data["dni"]
+    pd._persona._telefono = data["telefono"]
+    pd.merge(int(pos)-1)
+    return redirect("/personas", code=302)
+
+
+
+@router.route('/personas/ordenar', methods=["GET"])
+def ordenar_personas():
+    sort_method = request.args.get("sortMethod")
+    sort_attribute = request.args.get("sortAttribute")
+    sort_order = request.args.get("sortOrder")
+    descending = sort_order == "descendente"
+
+    pd = PersonaDaoControl()
+    lista = pd._list()
+    merge_sort = MergeSort()
+    quick_sort = QuickSort()
+    shell_sort = ShellSort()
+
+    # Convertimos la lista enlazada a un array
+    array_personas = lista.toArray
+
+    if sort_method == "merge":
+        if descending:
+            array_personas = merge_sort.sort_models_descendent(array_personas, sort_attribute)
+        else:
+            array_personas = merge_sort.sort_models_ascendent(array_personas, sort_attribute)
+    elif sort_method == "quick":
+        if descending:
+            array_personas = quick_sort.sort_models_descendent(array_personas, sort_attribute)
+        else:
+            array_personas = quick_sort.sort_models_ascendent(array_personas, sort_attribute)
+    elif sort_method == "shell":
+        if descending:
+            array_personas = shell_sort.sort_models_descendent(array_personas, sort_attribute)
+        else:
+            array_personas = shell_sort.sort_models_ascendent(array_personas, sort_attribute)
+    else:
+        return "Método de ordenación no válido"
+
+    lista.toList(array_personas)
+    return render_template('personas/listapersonas.html', lista=lista.toArray)
+
+@router.route('/personas/buscar', methods=["GET"])
+def buscar_personas():
+    query = request.args.get("query")
+    search_attribute = request.args.get("searchAttribute")
+    search_method = request.args.get("metodo_busqueda")
+    starts_with = request.args.get("startsWith") == "true"
+
+    pd = PersonaDaoControl()
+    lista = pd._list()
+    array_personas = lista.toArray
+
+    result = []
+    if search_method == "binario":
+        result = BinarySearch.search(array_personas, search_attribute, query, starts_with)
+    elif search_method == "lineal":
+        result = LinearSearch.search(array_personas, search_attribute, query, starts_with)
+    else:
+        return "Método de búsqueda no válido"
+
+
+    return render_template('personas/listapersonas.html', lista=result)
+
+
+@router.route('/facturas/editar/<pos>')
+def ver_editarFacturas(pos):
+    fd = FacturaDaoControl()
+    factura = fd._list().get(int(pos)-1)
+    print(factura)
+    return render_template("facturas/modificarfacturas.html", data = factura)
+
+#MODIFICAR PERSONAS
+@router.route('/facturas/modificar', methods=["POST"])
+def modificar_facturas():
+    fd = FacturaDaoControl()
+    data = request.form
+    pos = data["id"]
+    facturalista = fd._list().get(int(data["id"]) -1)
+    if not "numero" in data.keys():
+        abort(400)
+    
+    #TODO ...Validar
+    fd._factura = facturalista
+    fd._factura._id = data ["id"]
+    fd._factura._numero = data["numero"]
+    fd._factura._nombreReceptor = data["nombreReceptor"]
+    fd._factura._fechaEmision = data["fechaEmision"]
+    fd._factura._montoTotal = data["montoTotal"]
+    fd.merge(int(pos)-1)
+    return redirect("/facturas", code=302)
 
 @router.route('/personas/eliminar/<int:persona_id>', methods=["POST"])
 def eliminar_persona(persona_id):
