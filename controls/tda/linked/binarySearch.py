@@ -54,5 +54,5 @@ class BinarySearch:
                     left = mid + 1
                 else:
                     right = mid - 1
-
+        print (type(results))
         return results

@@ -15,6 +15,7 @@ from controls.tda.linked.merge import MergeSort
 from controls.tda.linked.quick import QuickSort
 from controls.tda.linked.shell import ShellSort
 from controls.tda.linked.binarySearch import BinarySearch
+from controls.tda.linked.linkedList import Linked_List
 from controls.tda.linked.linearSearch import LinearSearch
 import json
 import json
@@ -243,6 +244,7 @@ def ordenar_personas():
     lista.toList(array_personas)
     return render_template('personas/listapersonas.html', lista=lista.toArray)
 
+
 @router.route('/personas/buscar', methods=["GET"])
 def buscar_personas():
     query = request.args.get("query")
@@ -252,9 +254,12 @@ def buscar_personas():
 
     pd = PersonaDaoControl()
     lista = pd._list()
-    array_personas = lista.toArray
+    array_personas = lista.toArray._array
 
+
+    lista1 = []
     result = []
+
     if search_method == "binario":
         result = BinarySearch.search(array_personas, search_attribute, query, starts_with)
     elif search_method == "lineal":
@@ -262,9 +267,36 @@ def buscar_personas():
     else:
         return "Método de búsqueda no válido"
 
+    for persona in result:
+        lista1.append(persona.serializable)
+    
+    return render_template('personas/listapersonas.html', lista=lista1)
 
-    return render_template('personas/listapersonas.html', lista=result)
+@router.route('/facturas/buscar', methods=["GET"])
+def buscar_facturas():
+    query = request.args.get("query")
+    search_attribute = request.args.get("searchAttribute")
+    search_method = request.args.get("metodo_busqueda")
+    starts_with = request.args.get("startsWith") == "true"
 
+    fd = FacturaDaoControl()
+    lista = fd._list()
+    array_facturas = lista.toArray._array
+
+    lista1 = []
+    result = []
+
+    if search_method == "binario":
+        result = BinarySearch.search(array_facturas, search_attribute, query, starts_with)
+    elif search_method == "lineal":
+        result = LinearSearch.search(array_facturas, search_attribute, query, starts_with)
+    else:
+        return "Método de búsqueda no válido"
+
+    for factura in result:
+        lista1.append(factura.serializable)
+    
+    return render_template('facturas/listafacturas.html', lista=lista1)
 
 @router.route('/facturas/editar/<pos>')
 def ver_editarFacturas(pos):

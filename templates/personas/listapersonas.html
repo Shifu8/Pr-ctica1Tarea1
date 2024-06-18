@@ -52,9 +52,8 @@
         <a href="personas/ver" class="btn btn-danger btn-sm mr-3" style="padding: 13px 15px; height: auto;">AGREGAR
             PERSONA</a>
 
-        <!-- Formulario de Búsqueda -->
         <form id="formBusqueda" action="/personas/buscar" method="GET" class="flex-grow-1 d-flex align-items-center">
-            <div class="input-group" style="max-width: 595px;">
+            <div class="input-group" style="max-width: 650px;">
                 <input type="text" class="form-control rotating-placeholder" placeholder="Buscar" name="query"
                     id="query" required>
                 <select class="form-select" name="searchAttribute" id="searchAttribute">
@@ -97,9 +96,19 @@
         </form>
     </div>
 
+    <style>
+        .background-image {
+            background-image: url("{{ url_for('static', filename='img/carousel-1.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
 
-
-    <!-- Tabla de Personas -->
     <div id="tablaContainer" class="table-container">
         <table id="tabla" class="table table-bordered table-hover">
             <thead class="thead-dark">
@@ -134,22 +143,18 @@
                     <td>
                         <div class="d-flex">
                             <a href="/facturas/ver?dni={{ item.dni }}&ruc={{ item.tipoRuc }}"
-                                class="btn btn-primary btn-sm me-2"
-                                style="background-color: #1879d4; color: white; border: none; padding: 5px 10px; border-radius: 6px;">Agregar
-                                Factura</a>
+                                class="btn btn-primary btn-sm me-2">Agregar Factura</a>
                             <a href="/personas/editar/{{ item.id }}" class="btn btn-sm me-2"
-                                style="background-color: #28d670; color: white; border: none; padding: 5px 10px; border-radius: 6px;">MODIFICAR</a>
+                                style="background-color: #286ed6; color: white; border: none; padding: 5px 10px; border-radius: 2px;">MODIFICAR</a>
                             <form id="eliminar_form_{{ item.id }}" action="/personas/eliminar/{{ item.id }}"
                                 method="POST">
                                 <button type="submit" class="btn btn-sm"
-                                    style="background-color: #c92b2b; color: white; border: none; padding: 5px 10px; border-radius: 6px;">Eliminar</button>
+                                    style="background-color: #e22e28; color: white; border: none; padding: 5px 10px; border-radius: 2*px;">Eliminar</button>
                             </form>
                         </div>
                     </td>
                     <td>
-                        <a href="facturas" class="btn btn-secondary btn-sm"
-                            style="background-color: #a528d6; color: white; border: none; padding: 5px 10px; border-radius: 6px;">Ver
-                            Facturas</a>
+                        <a href="/facturas" class="btn btn-secondary btn-sm">Ver Facturas</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -157,6 +162,8 @@
         </table>
     </div>
 </div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -257,6 +264,8 @@
         }
     });
 </script>
+
+
 
 <script>
     $(document).ready(function () {

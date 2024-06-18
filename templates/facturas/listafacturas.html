@@ -3,21 +3,21 @@
 {% block content %}
 <div class="content-panel">
 
-    <!-- Title Section -->
     <div class="text-center w-100">
         <h1 class="display-20 text-uppercase text-black" style="margin: 0; margin-bottom: 5px;">LISTA DE FACTURAS</h1>
     </div>
 
 
-    <!-- Botón Volver -->
-    <a href="personas" class="btn btn-danger mb-3">Volver</a>
-
-    <!-- Search Form -->
-    <div class="d-flex mb-4">
-        <form method="GET" action="/personas/buscar" class="flex-grow-1 d-flex align-items-center">
-            <div class="input-group">
-                <input type="text" class="form-control rotating-placeholder" placeholder="Buscar por apellidos"
-                    name="apellido" required>
+    <div class="d-flex mb-4 align-items-center">
+        <a href="/personas" class="btn btn-danger btn-sm mr-3" style="padding: 13px 15px; height: 50px;">Volver</a>
+        <form id="formBusqueda" action="/facturas/buscar" method="GET" class="flex-grow-1 d-flex align-items-center">
+            <div class="input-group" style="max-width: 890px;">
+                <input type="text" class="form-control rotating-placeholder" placeholder="Buscar" name="query"
+                    id="query" required>
+                <select class="form-select" name="searchAttribute" id="searchAttribute">
+                    <option value="_dniPersonaEmisora">Cedula</option>
+                    <option value="_fechaEmision">Fecha</option>
+                </select>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
@@ -34,8 +34,35 @@
                     </label>
                 </div>
             </div>
+            <div class="ml-3">
+                <div class="form-group">
+                    <label class="text-black">Tipo de coincidencia</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="startsWith" id="anywhere" value="false"
+                            checked>
+                        <label class="form-check-label text-black" for="anywhere">En cualquier lugar</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="startsWith" id="start" value="true">
+                        <label class="form-check-label text-black" for="start">Por inicial</label>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
+
+    <style>
+        .background-image {
+            background-image: url("{{ url_for('static', filename='img/carousel-1.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
 
     <div class="table-container">
         <table id="tabla" class="table table-bordered table-hover">

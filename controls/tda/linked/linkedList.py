@@ -7,6 +7,8 @@ from controls.tda.linked.insercion import Insercion
 from controls.tda.linked.merge import MergeSort
 from controls.tda.linked.quick import QuickSort 
 from controls.tda.linked.shell import ShellSort 
+from controls.tda.linked.tdaArray import TDAArray
+
 class Linked_List(object):
     def __init__(self):
         self.__head = None  
@@ -172,20 +174,34 @@ class Linked_List(object):
                 node = node._next          
         return out
     
+    # #Pasar la lista a arreglo
+    # @property
+    # def toArray(self):
+    #     array = []
+    #     if not self.isEmpty:
+    #         node = self.__head
+    #         cont = 0
+    #         while cont < self._lenght:
+    #             array.append(node._data)
+    #             cont += 1
+    #             node = node._next
+
+    #     return array
+    
     #Pasar la lista a arreglo
     @property
     def toArray(self):
-        array = []
+        array = TDAArray(self._lenght)
         if not self.isEmpty:
             node = self.__head
-            cont = 0
+            cont = 0 
             while cont < self._lenght:
-                array.append(node._data)
+                array.insert(node._data, cont)
                 cont += 1
                 node = node._next
-
         return array
-        
+                
+
     def toList(self, array):
         self.clear
         for i in range(0, len(array)):
