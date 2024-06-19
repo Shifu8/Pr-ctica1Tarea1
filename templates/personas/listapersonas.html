@@ -12,23 +12,15 @@
     {% endif %}
     {% endwith %}
 
-<<<<<<< HEAD
     <!-- Title Section -->
-=======
->>>>>>> origin/main
     <div class="text-center mt-100 mb-4">
         <h1 class="display-20 text-uppercase text-black">LISTA DE PERSONAS</h1>
     </div>
 
-<<<<<<< HEAD
     <!-- Formulario de Ordenación -->
     <div class="d-flex align-items-center mb-4">
         <form id="ordenarForm" action="/personas/ordenar" method="GET" class="ml-auto d-flex align-items-center">
             <!-- Combobox para ordenar -->
-=======
-    <div class="d-flex align-items-center mb-4">
-        <form id="ordenarForm" action="/personas/ordenar" method="GET" class="ml-auto d-flex align-items-center">
->>>>>>> origin/main
             <input type="hidden" name="sortMethod" id="sortMethod">
             <div class="ml-3">
                 <label for="sortAttribute" class="mr-2">Atributo:</label>
@@ -44,10 +36,7 @@
                     <option value="descendente">Descendente</option>
                 </select>
             </div>
-<<<<<<< HEAD
             <!-- Button to open the modal -->
-=======
->>>>>>> origin/main
             <button type="button" class="btn btn-info ml-2"
                 style="background-color: #d67628; color: white; border: none; padding: 5px 10px; border-radius: 6px;"
                 data-toggle="modal" data-target="#exampleModal">
@@ -59,7 +48,6 @@
     </div>
 
     <div class="d-flex mb-4 align-items-center">
-<<<<<<< HEAD
         <!-- Botón AGREGAR PERSONA -->
         <a href="personas/ver" class="btn btn-danger btn-sm mr-3" style="padding: 13px 15px; height: auto;">AGREGAR
             PERSONA</a>
@@ -67,22 +55,12 @@
         <!-- Formulario de Búsqueda -->
         <form id="formBusqueda" action="/personas/buscar" method="GET" class="flex-grow-1 d-flex align-items-center">
             <div class="input-group" style="max-width: 595px;">
-=======
-        <a href="personas/ver" class="btn btn-danger btn-sm mr-3" style="padding: 13px 15px; height: auto;">AGREGAR
-            PERSONA</a>
-
-        <form id="formBusqueda" action="/personas/buscar" method="GET" class="flex-grow-1 d-flex align-items-center">
-            <div class="input-group" style="max-width: 650px;">
->>>>>>> origin/main
                 <input type="text" class="form-control rotating-placeholder" placeholder="Buscar" name="query"
                     id="query" required>
                 <select class="form-select" name="searchAttribute" id="searchAttribute">
                     <option value="_apellidos">Apellidos</option>
                     <option value="_dni">Cedula</option>
-<<<<<<< HEAD
                     <!-- Añadir más opciones según tus atributos -->
-=======
->>>>>>> origin/main
                 </select>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Buscar</button>
@@ -100,11 +78,8 @@
                     </label>
                 </div>
             </div>
-<<<<<<< HEAD
 
             <!-- Nuevas opciones de Tipo de coincidencia -->
-=======
->>>>>>> origin/main
             <div class="ml-3">
                 <div class="form-group">
                     <label class="text-black">Tipo de coincidencia</label>
@@ -122,10 +97,7 @@
         </form>
     </div>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
     <style>
         .background-image {
             background-image: url("{{ url_for('static', filename='img/carousel-1.jpg') }}");
@@ -285,10 +257,7 @@
                     return 1;
                 case '_direccion':
                     return 4;
-<<<<<<< HEAD
                 // Agrega más casos si tienes más atributos
-=======
->>>>>>> origin/main
                 default:
                     return 0;
             }
@@ -296,11 +265,6 @@
     });
 </script>
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/main
 <script>
     $(document).ready(function () {
         $('form[id^="eliminar_form_"]').submit(function (event) {
