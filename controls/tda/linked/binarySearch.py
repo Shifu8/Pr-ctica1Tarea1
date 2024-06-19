@@ -22,12 +22,10 @@ class BinarySearch:
 
             if starts_with:
                 if str(mid_value).startswith(str(normalized_query)):
-                    # Agregar todos los elementos iguales hacia la izquierda
                     i = mid
                     while i >= 0 and str(attribute_accessor(sorted_data[i])).lower().startswith(str(normalized_query)):
                         results.append(sorted_data[i])
                         i -= 1
-                    # Agregar todos los elementos iguales hacia la derecha
                     i = mid + 1
                     while i < len(sorted_data) and str(attribute_accessor(sorted_data[i])).lower().startswith(str(normalized_query)):
                         results.append(sorted_data[i])
@@ -39,12 +37,10 @@ class BinarySearch:
                     right = mid - 1
             else:
                 if str(normalized_query) in str(mid_value):
-                    # Agregar todos los elementos iguales hacia la izquierda
                     i = mid
                     while i >= 0 and str(normalized_query) in str(attribute_accessor(sorted_data[i])).lower():
                         results.append(sorted_data[i])
                         i -= 1
-                    # Agregar todos los elementos iguales hacia la derecha
                     i = mid + 1
                     while i < len(sorted_data) and str(normalized_query) in str(attribute_accessor(sorted_data[i])).lower():
                         results.append(sorted_data[i])
