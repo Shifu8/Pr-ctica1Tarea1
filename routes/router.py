@@ -15,6 +15,10 @@ from controls.tda.linked.merge import MergeSort
 from controls.tda.linked.quick import QuickSort
 from controls.tda.linked.shell import ShellSort
 from controls.tda.linked.binarySearch import BinarySearch
+<<<<<<< HEAD
+=======
+from controls.tda.linked.linkedList import Linked_List
+>>>>>>> origin/main
 from controls.tda.linked.linearSearch import LinearSearch
 import json
 import json
@@ -243,6 +247,10 @@ def ordenar_personas():
     lista.toList(array_personas)
     return render_template('personas/listapersonas.html', lista=lista.toArray)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 @router.route('/personas/buscar', methods=["GET"])
 def buscar_personas():
     query = request.args.get("query")

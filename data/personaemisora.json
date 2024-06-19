@@ -1,1 +1,159 @@
+<<<<<<< HEAD
 [{"id": 1, "apellidos": "Andrade", "nombres": "Alicia", "direccion": "Ambato", "dni": "1145623789", "telefono": "0987123456", "tipoRuc": "PROFESIONAL"},{"id": 2, "apellidos": "Bustamante", "nombres": "Bruno", "direccion": "Babahoyo", "dni": "1123948756", "telefono": "0987234567", "tipoRuc": "EDUCATIVO"},{"id": 3, "apellidos": "Carrasco", "nombres": "Carla", "direccion": "Cuenca", "dni": "1137482915", "telefono": "0987345678", "tipoRuc": "EDUCATIVO"},{"id": 4, "apellidos": "Delgado", "nombres": "Diego", "direccion": "Dur\u00e1n", "dni": "1145819237", "telefono": "0987456789", "tipoRuc": "PROFESIONAL"},{"id": 5, "apellidos": "Estrada", "nombres": "Elena", "direccion": "Esmeraldas", "dni": "1158291463", "telefono": "0987567890", "tipoRuc": "PROFESIONAL"},{"id": 6, "apellidos": "Flores", "nombres": "Francisco", "direccion": "Fuerza A\u00e9rea", "dni": "1162947183", "telefono": "0987678901", "tipoRuc": "EDUCATIVO"},{"id": 7, "apellidos": "Garc\u00eda", "nombres": "Gabriela", "direccion": "Guayaquil", "dni": "1174102938", "telefono": "0987789012", "tipoRuc": "PROFESIONAL"},{"id": 8, "apellidos": "Ib\u00e1\u00f1ez", "nombres": "Isabel", "direccion": "Ibarra", "dni": "1190182745", "telefono": "0987901234", "tipoRuc": "PROFESIONAL"},{"id": 9, "apellidos": "Jim\u00e9nez", "nombres": "Javier", "direccion": "Jipijapa", "dni": "1129384756", "telefono": "0987012345", "tipoRuc": "PROFESIONAL"},{"id": 10, "apellidos": "Andrade", "nombres": "Alicia", "direccion": "Quito", "dni": "1112345678", "telefono": "0987123456", "tipoRuc": "EDUCATIVO"},{"id": 11, "apellidos": "Bustamante", "nombres": "Bruno", "direccion": "Quinind\u00e9", "dni": "1112345679", "telefono": "0987234567", "tipoRuc": "PROFESIONAL"},{"id": 12, "apellidos": "Carrasco", "nombres": "Carla", "direccion": "Quito", "dni": "1112345680", "telefono": "0987345678", "tipoRuc": "EDUCATIVO"},{"id": 13, "apellidos": "Delgado", "nombres": "Diego", "direccion": "Quevedo", "dni": "1112345681", "telefono": "0987456789", "tipoRuc": "EDUCATIVO"},{"id": 14, "apellidos": "Estrada", "nombres": "Elena", "direccion": "Quijos", "dni": "1112345682", "telefono": "0987567890", "tipoRuc": "EDUCATIVO"},{"id": 15, "apellidos": "L\u00f3pez", "nombres": "Luis", "direccion": "Loja", "dni": "1112345683", "telefono": "0987678911", "tipoRuc": "PROFESIONAL"},{"id": 16, "apellidos": "Morales", "nombres": "Mar\u00eda", "direccion": "Manta", "dni": "1112345684", "telefono": "0987789022", "tipoRuc": "PROFESIONAL"},{"id": 17, "apellidos": "N\u00fa\u00f1ez", "nombres": "Nicol\u00e1s", "direccion": "Naranjal", "dni": "1112345685", "telefono": "0987890133", "tipoRuc": "EDUCATIVO"},{"id": 18, "apellidos": "Ortiz", "nombres": "Olga", "direccion": "Otavalo", "dni": "1112345686", "telefono": "0987901244", "tipoRuc": "PROFESIONAL"}]
+=======
+[
+    {
+        "id": 1,
+        "apellidos": "Andrade",
+        "nombres": "Alicia",
+        "direccion": "Ambato",
+        "dni": "1145623789",
+        "telefono": "0987123456",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 2,
+        "apellidos": "Bustamante",
+        "nombres": "Bruno",
+        "direccion": "Babahoyo",
+        "dni": "1123948756",
+        "telefono": "0987234567",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 3,
+        "apellidos": "Carrasco",
+        "nombres": "Carla",
+        "direccion": "Cuenca",
+        "dni": "1137482915",
+        "telefono": "0987345678",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 4,
+        "apellidos": "Delgado",
+        "nombres": "Diego",
+        "direccion": "Dur\u00e1n",
+        "dni": "1145819237",
+        "telefono": "0987456789",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 5,
+        "apellidos": "Estrada",
+        "nombres": "Elena",
+        "direccion": "Esmeraldas",
+        "dni": "1158291463",
+        "telefono": "0987567890",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 6,
+        "apellidos": "Flores",
+        "nombres": "Francisco",
+        "direccion": "Fuerza A\u00e9rea",
+        "dni": "1162947183",
+        "telefono": "0987678901",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 7,
+        "apellidos": "Garc\u00eda",
+        "nombres": "Gabriela",
+        "direccion": "Guayaquil",
+        "dni": "1174102938",
+        "telefono": "0987789012",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 8,
+        "apellidos": "Ib\u00e1\u00f1ez",
+        "nombres": "Isabel",
+        "direccion": "Ibarra",
+        "dni": "1190182745",
+        "telefono": "0987901234",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 9,
+        "apellidos": "Jim\u00e9nez",
+        "nombres": "Javier",
+        "direccion": "Jipijapa",
+        "dni": "1129384756",
+        "telefono": "0987012345",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 10,
+        "apellidos": "Andrade",
+        "nombres": "Alicia",
+        "direccion": "Quito",
+        "dni": "1112345678",
+        "telefono": "0987123456",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 11,
+        "apellidos": "Bustamante",
+        "nombres": "Bruno",
+        "direccion": "Quinind\u00e9",
+        "dni": "1112345679",
+        "telefono": "0987234567",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 12,
+        "apellidos": "Carrasco",
+        "nombres": "Carla",
+        "direccion": "Quito",
+        "dni": "1112345680",
+        "telefono": "0987345678",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 13,
+        "apellidos": "Delgado",
+        "nombres": "Diego",
+        "direccion": "Quevedo",
+        "dni": "1112345681",
+        "telefono": "0987456789",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 14,
+        "apellidos": "Estrada",
+        "nombres": "Elena",
+        "direccion": "Quijos",
+        "dni": "1112345682",
+        "telefono": "0987567890",
+        "tipoRuc": "EDUCATIVO"
+    },
+    {
+        "id": 15,
+        "apellidos": "L\u00f3pez",
+        "nombres": "Luis",
+        "direccion": "Loja",
+        "dni": "1112345683",
+        "telefono": "0987678911",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 16,
+        "apellidos": "Morales",
+        "nombres": "Mar\u00eda",
+        "direccion": "Manta",
+        "dni": "1112345684",
+        "telefono": "0987789022",
+        "tipoRuc": "PROFESIONAL"
+    },
+    {
+        "id": 17,
+        "apellidos": "N\u00fa\u00f1ez",
+        "nombres": "Nicol\u00e1s",
+        "direccion": "Naranjal",
+        "dni": "1112345685",
+        "telefono": "0987890133",
+        "tipoRuc": "EDUCATIVO"
+    }
+]
+>>>>>>> origin/main

@@ -18,7 +18,11 @@ class DaoAdapter(Generic[T]):
             datos = json.load(f)
             self.lista.clear
             for data in datos:
+<<<<<<< HEAD
                 print(type(data))
+=======
+                #print(type(data))
+>>>>>>> origin/main
                 a = self.atype.deserializar(data)
                 self.lista.add(a, self.lista._lenght)
             f.close()

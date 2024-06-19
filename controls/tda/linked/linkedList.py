@@ -8,6 +8,10 @@ from controls.tda.linked.merge import MergeSort
 from controls.tda.linked.quick import QuickSort 
 from controls.tda.linked.shell import ShellSort 
 from controls.tda.linked.tdaArray import TDAArray
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 class Linked_List(object):
     def __init__(self):
         self.__head = None  
@@ -173,7 +177,25 @@ class Linked_List(object):
                 node = node._next          
         return out
     
+<<<<<<< HEAD
  #Pasar la lista a arreglo
+=======
+    # #Pasar la lista a arreglo
+    # @property
+    # def toArray(self):
+    #     array = []
+    #     if not self.isEmpty:
+    #         node = self.__head
+    #         cont = 0
+    #         while cont < self._lenght:
+    #             array.append(node._data)
+    #             cont += 1
+    #             node = node._next
+
+    #     return array
+    
+    #Pasar la lista a arreglo
+>>>>>>> origin/main
     @property
     def toArray(self):
         array = TDAArray(self._lenght)
@@ -248,3 +270,68 @@ class Linked_List(object):
                 if(array[i].lower().__contains__ (data.lower())):    #startswith
                     list.add(array[i], list._lenght)
         return list
+<<<<<<< HEAD
+=======
+
+##############################################################
+            #En caso de los datos numéricos 
+import random
+
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+
+        merge_sort(L)
+        merge_sort(R)
+
+        i = j = k = 0
+
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[len(arr) // 2]
+        left = [x for x in arr if x < pivot]
+        middle = [x for x in arr if x == pivot]
+        right = [x for x in arr if x > pivot]
+        return quick_sort(left) + middle + quick_sort(right)
+
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
+
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            arr[j] = temp
+        gap //= 2
+
+def generate_random_array(size):
+    return [random.randint(1, 1000000) for _ in range(size)]
+    
+>>>>>>> origin/main
